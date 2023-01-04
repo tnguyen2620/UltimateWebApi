@@ -32,7 +32,10 @@ namespace CompanyEmployees
             services.ConfigureSqlContext(Configuration);
             services.ConfigureRepositoryManager();
             services.AddAutoMapper(typeof(Startup));
-            services.AddControllers();
+            services.AddControllers(config =>
+            {
+                config.RespectBrowserAcceptHeader = true;
+            }).AddXmlDataContractSerializerFormatters(); //options to enable the server to formt the XML response when the client tries negotiating for it
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
