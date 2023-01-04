@@ -2,6 +2,7 @@ using CompanyEmployees.Extensions;
 using LoggerService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -38,7 +39,12 @@ namespace CompanyEmployees
                 config.ReturnHttpNotAcceptable = true; //if the client ask for unsupported media type , server will return 406 Not Acceptable
             }).AddNewtonsoftJson()  // to support request body conversion to a PatchDocument
               .AddXmlDataContractSerializerFormatters() //options to enable the server to formt the XML response when the client tries negotiating for it
-              .AddCustomCSVFormatter();              
+              .AddCustomCSVFormatter();
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            }); // suppress the BadRequest error when the ModelState is invalid. 
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
