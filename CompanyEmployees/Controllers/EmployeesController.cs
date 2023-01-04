@@ -160,14 +160,20 @@ namespace CompanyEmployees.Controllers
                 return NotFound();
             }
             var employeeToPatch = _mapper.Map<EmployeeForUpdateDto>(employeeEntity);
-            patchDoc.ApplyTo(employeeToPatch);
+            patchDoc.ApplyTo(employeeToPatch, ModelState);
+            
+            TryValidateModel(employeeToPatch); //prevent an invalid Employee from being saved to the database. 
+            // removing age in the Patch request will set it to 0, which is accepted in the database,
+            // so we need to stop this!!
+
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError("Invalid model state for the patch document");
+                return UnprocessableEntity(ModelState);
+            }
             _mapper.Map(employeeToPatch, employeeEntity);
             _repository.Save();
             return NoContent();
         }
-
-
-
-
     }
 }
