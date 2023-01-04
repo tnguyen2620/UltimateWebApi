@@ -36,7 +36,9 @@ namespace CompanyEmployees
             {
                 config.RespectBrowserAcceptHeader = true;
                 config.ReturnHttpNotAcceptable = true; //if the client ask for unsupported media type , server will return 406 Not Acceptable
-            }).AddXmlDataContractSerializerFormatters().AddCustomCSVFormatter(); //options to enable the server to formt the XML response when the client tries negotiating for it
+            }).AddNewtonsoftJson()  // to support request body conversion to a PatchDocument
+              .AddXmlDataContractSerializerFormatters() //options to enable the server to formt the XML response when the client tries negotiating for it
+              .AddCustomCSVFormatter();              
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
