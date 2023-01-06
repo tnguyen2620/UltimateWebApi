@@ -46,6 +46,7 @@ namespace CompanyEmployees
                 options.SuppressModelStateInvalidFilter = true;
             }); // suppress the BadRequest error when the ModelState is invalid. 
             services.AddScoped<ValidationFilterAttribute>(); //register action filter
+            services.AddScoped<ValidateCompanyExistsAttribute>(); //register action filter
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
