@@ -33,6 +33,10 @@ namespace CompanyEmployees.Controllers
         [HttpGet]
         public async Task<IActionResult> GetEmployeesForCompany(Guid companyId, [FromQuery] EmployeeParameters employeeParameters)
         {
+            if(!employeeParameters.ValidAgeRange)
+            {
+                return BadRequest("Max age can't be less than min age.");
+            }
             var company = await _repository.Company.GetCompanyAsync(companyId, trackChanges: false);
             if (company == null)
             {
@@ -40,6 +44,7 @@ namespace CompanyEmployees.Controllers
                 return NotFound();
             }
             var employeesFromDb = await _repository.Employee.GetEmployeesAsync(companyId, employeeParameters, trackChanges: false);
+            //Add useful information (Metadata) to the response's header
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(employeesFromDb.MetaData));
             var employeesDto = _mapper.Map<IEnumerable<EmployeeDto>>(employeesFromDb);
             return Ok(employeesDto);
