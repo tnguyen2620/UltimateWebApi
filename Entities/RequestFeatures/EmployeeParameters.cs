@@ -22,10 +22,15 @@ namespace Entities.RequestFeatures
                 _pageSize = (value > maxPageSize) ? maxPageSize : value;
             }
         }
+        public string OrderBy { get; set; }
     }
 
     public class EmployeeParameters : RequestParameters
     {
+        public EmployeeParameters()
+        {
+            OrderBy = "name"; //the constructor set default sorting to NAME
+        }
         public uint MinAge { get; set; }
         public uint MaxAge { get; set; } = int.MaxValue;
         public bool ValidAgeRange => MaxAge > MinAge;
