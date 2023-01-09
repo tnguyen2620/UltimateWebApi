@@ -43,6 +43,7 @@ namespace CompanyEmployees
             }).AddNewtonsoftJson()  // to support request body conversion to a PatchDocument
               .AddXmlDataContractSerializerFormatters() //options to enable the server to formt the XML response when the client tries negotiating for it
               .AddCustomCSVFormatter();
+            services.AddCustomMediaTypes(); //Add custom media type for Hateoas
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
