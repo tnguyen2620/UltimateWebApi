@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Xml.Schema;
 using System.Xml;
 using System.Xml.Serialization;
+using Entities.LinkModels;
 
 namespace Entities.Models
 {
@@ -76,9 +77,24 @@ namespace Entities.Models
         private void WriteLinksToXml(string key, object value, XmlWriter writer)
         {
             writer.WriteStartElement(key);
-            writer.WriteString(value.ToString());
+            if (value.GetType() == typeof(List<Link>))
+            {
+                foreach (var val in value as List<Link>)
+                {
+                    writer.WriteStartElement(nameof(Link));
+                    WriteLinksToXml(nameof(val.Href), val.Href, writer);
+                    WriteLinksToXml(nameof(val.Method), val.Method, writer);
+                    WriteLinksToXml(nameof(val.Rel), val.Rel, writer);
+                    writer.WriteEndElement();
+                }
+            }
+            else
+            {
+                writer.WriteString(value.ToString());
+            }
             writer.WriteEndElement();
         }
+
 
         public void Add(string key, object value)
         {
