@@ -51,6 +51,7 @@ namespace CompanyEmployees
             services.AddScoped<ValidationFilterAttribute>(); //register action filter
             services.AddScoped<ValidateCompanyExistsAttribute>(); //register action filter
             services.AddScoped<ValidateEmployeeForCompanyExistsAttribute>();
+            services.AddScoped<ValidateMediaTypeAttribute>();
             services.AddScoped<IDataShaper<EmployeeDto>, DataShaper<EmployeeDto>>();
 
         }
