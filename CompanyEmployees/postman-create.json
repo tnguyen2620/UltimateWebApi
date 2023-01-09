@@ -1,0 +1,57 @@
+﻿{
+  "name": "Multiple Electronics",
+  "address": "33 Anderson Rd",
+  "country": "USA",
+  "employees": [
+    {
+      "name": "Andy",
+      "age": 21,
+      "position": "Technical Assistant"
+    },
+    {
+      "name": "Bob",
+      "age": 22,
+      "position": "Technical Assistant"
+    },
+    {
+      "name": "Coddy",
+      "age": 23,
+      "position": "Sale Assistant"
+    },
+    {
+      "name": "David",
+      "age": 24,
+      "position": "Sale Assistant"
+    },
+    {
+      "name": "Edgard",
+      "age": 25,
+      "position": "Sale Manager"
+    },
+    {
+      "name": "Finch",
+      "age": 26,
+      "position": "Technical Lead"
+    },
+    {
+      "name": "Gabby",
+      "age": 27,
+      "position": "HR"
+    },
+    {
+      "name": "Hugh",
+      "age": 28,
+      "position": "HR Manager"
+    },
+    {
+      "name": "Ian",
+      "age": 29,
+      "position": "Technical Assistant"
+    },
+    {
+      "name": "Kelly",
+      "age": 30,
+      "position": "Technical Assistant"
+    }
+  ]
+}
