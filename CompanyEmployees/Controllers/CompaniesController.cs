@@ -5,6 +5,7 @@ using Contracts;
 using Entities.Dto;
 using Entities.Models;
 using LoggerService;
+using Marvin.Cache.Headers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -40,6 +41,9 @@ namespace CompanyEmployees.Controllers
 
         //Get a single company using its id
         [HttpGet("{id}", Name = "CompanyById")]
+        // Resource level configuration, which will override the global level configuration in the ServiceExtension class. 
+        [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 60)]
+        [HttpCacheValidation(MustRevalidate = false)]
         //No need for the ResponseCache attribute, the Marvin.Cache.Headers lib will provide it. 
         //[ResponseCache(CacheProfileName = "120SecondDuration")]
         public async Task<IActionResult> GetCompany(Guid id)
