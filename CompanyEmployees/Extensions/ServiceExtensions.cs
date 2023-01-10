@@ -50,16 +50,17 @@ namespace CompanyEmployees.Extensions
                 var newtonsoftJsonOutputFormatter = config.OutputFormatters.OfType<NewtonsoftJsonOutputFormatter>()?.FirstOrDefault();
                 if (newtonsoftJsonOutputFormatter != null)
                 {
-                    newtonsoftJsonOutputFormatter
-                    .SupportedMediaTypes
-                    .Add("application/vnd.tnguyen.hateoas+json"); //vnd: vendor, tnguyen: vendor identifier because we can, hateoas: media type name, json suffix 
+                    //vnd: vendor, tnguyen: vendor identifier because we can, hateoas: media type name, json suffix 
+                    newtonsoftJsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.tnguyen.hateoas+json"); 
+                    //regster custom media types for the json format
+                    newtonsoftJsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.tnguyen.apiroot+json");
+
                 }
                 var xmlOutputFormatter = config.OutputFormatters.OfType<XmlDataContractSerializerOutputFormatter>()?.FirstOrDefault();
                 if (xmlOutputFormatter != null)
                 {
-                    xmlOutputFormatter
-                    .SupportedMediaTypes
-                    .Add("application/vnd.tnguyen.hateoas+xml"); //vnd: vendor, tnguyen: vendor identifier because we can, hateoas: media type name, xml suffix 
+                    xmlOutputFormatter.SupportedMediaTypes.Add("application/vnd.tnguyen.hateoas+xml"); //vnd: vendor, tnguyen: vendor identifier because we can, hateoas: media type name, xml suffix 
+                    xmlOutputFormatter.SupportedMediaTypes.Add("application/vnd.tnguyen.apiroot+xml");
                 }
             });
         }
