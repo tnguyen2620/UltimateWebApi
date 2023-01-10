@@ -41,6 +41,7 @@ namespace CompanyEmployees
             {
                 config.RespectBrowserAcceptHeader = true;
                 config.ReturnHttpNotAcceptable = true; //if the client ask for unsupported media type , server will return 406 Not Acceptable
+                config.CacheProfiles.Add("120SecondDuration", new CacheProfile { Duration = 120 });
             }).AddNewtonsoftJson()  // to support request body conversion to a PatchDocument
               .AddXmlDataContractSerializerFormatters() //options to enable the server to formt the XML response when the client tries negotiating for it
               .AddCustomCSVFormatter();
