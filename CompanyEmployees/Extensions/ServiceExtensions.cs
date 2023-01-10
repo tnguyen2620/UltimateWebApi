@@ -74,5 +74,9 @@ namespace CompanyEmployees.Extensions
                 opt.DefaultApiVersion = new ApiVersion(1, 0);
             });
         }
+
+        // Add caching-store
+        public static void ConfigureResponseCaching(this IServiceCollection services) => services.AddResponseCaching();
+
     }
 }

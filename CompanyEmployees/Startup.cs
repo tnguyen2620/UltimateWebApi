@@ -56,6 +56,7 @@ namespace CompanyEmployees
             services.AddScoped<IDataShaper<EmployeeDto>, DataShaper<EmployeeDto>>();
             services.AddScoped<EmployeeLinks>(); //register EmployeeLinks class for Hateoas implementation
             services.ConfigureVersioning();
+            services.ConfigureResponseCaching();
 
         }
 
@@ -78,7 +79,7 @@ namespace CompanyEmployees
             {
                 ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.All
             });
-
+            app.UseResponseCaching(); //add cachding to the application middleware
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
