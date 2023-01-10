@@ -36,8 +36,11 @@ namespace CompanyEmployees.Utility
 
         private bool ShouldGenerateLinks(HttpContext httpContext)
         {
-            var mediaType = (MediaTypeHeaderValue)httpContext.Items["AcceptHeaderMediaType"];
-            return mediaType.SubTypeWithoutSuffix.EndsWith("hateoas", StringComparison.InvariantCultureIgnoreCase);
+            //var mediaType = (MediaTypeHeaderValue)httpContext.Items["AcceptHeaderMediaType"];
+            //return mediaType.SubTypeWithoutSuffix.EndsWith("hateoas", StringComparison.InvariantCultureIgnoreCase);
+            //there is something wrong with the (MediaTypeHeaderValue), try a simpler implementation below: 
+            var mediaTypeString = httpContext.Items["AcceptHeaderMediaType"];
+            return mediaTypeString.ToString().Contains("hateoas");
         }
         private LinkResponse ReturnShapedEmployees(List<Entity> shapedEmployees) => new LinkResponse { ShapedEntities = shapedEmployees };
 
