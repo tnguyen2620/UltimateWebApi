@@ -40,7 +40,8 @@ namespace CompanyEmployees.Controllers
 
         //Get a single company using its id
         [HttpGet("{id}", Name = "CompanyById")]
-        [ResponseCache(CacheProfileName = "120SecondDuration")]
+        //No need for the ResponseCache attribute, the Marvin.Cache.Headers lib will provide it. 
+        //[ResponseCache(CacheProfileName = "120SecondDuration")]
         public async Task<IActionResult> GetCompany(Guid id)
         {
             var company = await _repository.Company.GetCompanyAsync(id, trackChanges: false);

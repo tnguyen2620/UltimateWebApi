@@ -58,7 +58,7 @@ namespace CompanyEmployees
             services.AddScoped<EmployeeLinks>(); //register EmployeeLinks class for Hateoas implementation
             services.ConfigureVersioning();
             services.ConfigureResponseCaching();
-
+            services.ConfigureHttpCacheHeaders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,6 +81,7 @@ namespace CompanyEmployees
                 ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.All
             });
             app.UseResponseCaching(); //add cachding to the application middleware
+            app.UseHttpCacheHeaders(); //use http cache headers for cache validation
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
