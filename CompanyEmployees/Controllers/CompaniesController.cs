@@ -40,6 +40,7 @@ namespace CompanyEmployees.Controllers
 
         //Get a single company using its id
         [HttpGet("{id}", Name = "CompanyById")]
+        [ResponseCache(Duration = 60)]
         public async Task<IActionResult> GetCompany(Guid id)
         {
             var company = await _repository.Company.GetCompanyAsync(id, trackChanges: false);
