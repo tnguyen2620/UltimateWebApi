@@ -57,6 +57,7 @@ namespace CompanyEmployees
             services.AddScoped<ValidateMediaTypeAttribute>();
             services.AddScoped<IDataShaper<EmployeeDto>, DataShaper<EmployeeDto>>();
             services.AddScoped<EmployeeLinks>(); //register EmployeeLinks class for Hateoas implementation
+            services.AddScoped<IAuthenticationManager, AuthenticationManager>();
             services.ConfigureVersioning();
             services.ConfigureResponseCaching();
             services.ConfigureHttpCacheHeaders();
