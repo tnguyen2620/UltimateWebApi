@@ -33,7 +33,7 @@ namespace CompanyEmployees.Controllers
             _mapper = mapper;
         }
         [HttpGet(Name = "GetCompanies")]
-        [Authorize]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> GetCompanies()
         {
             var companies = await _repository.Company.GetAllCompaniesAsync(trackChanges: false);
