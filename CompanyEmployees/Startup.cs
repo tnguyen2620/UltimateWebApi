@@ -67,6 +67,8 @@ namespace CompanyEmployees
             services.AddAuthentication(); //for identity
             services.ConfigureIdentity(); //for identity
             services.ConfigureJWT(Configuration); //for JWT configuration
+            services.ConfigureSwagger();
+
 
         }
 
@@ -93,6 +95,13 @@ namespace CompanyEmployees
             app.UseHttpCacheHeaders(); //use http cache headers for cache validation
             app.UseIpRateLimiting(); //use rate limit
             app.UseRouting();
+            app.UseSwagger();
+            app.UseSwaggerUI(s =>
+            {
+                s.SwaggerEndpoint("/swagger/v1/swagger.json", "Ultimate Web API v1");
+                s.SwaggerEndpoint("/swagger/v2/swagger.json", "Ultimate Web API v2");
+            });
+
             app.UseAuthentication(); //for identity
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
