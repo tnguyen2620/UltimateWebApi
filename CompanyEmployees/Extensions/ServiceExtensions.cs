@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Repository;
 using System.Linq;
 using Marvin.Cache.Headers;
+using AspNetCoreRateLimit;
+using System.Collections.Generic;
 
 namespace CompanyEmployees.Extensions
 {
@@ -90,5 +92,30 @@ namespace CompanyEmployees.Extensions
                 {
                     validationOpt.MustRevalidate = true;
                 });
+
+        //configure rate limiting options
+        public static void ConfigureRateLimitingOptions(this IServiceCollection services)
+        {
+            var rateLimitRules = new List<RateLimitRule>
+            {
+                new RateLimitRule
+                { // 3 requests permitted in every 5 minutes for any endpoint
+                    Endpoint = "*",
+                    Limit= 3,
+                    Period = "5m"
+                }
+            };
+            
+            services.Configure<IpRateLimitOptions>(opt =>
+            {
+                opt.GeneralRules = rateLimitRules;
+            });
+            services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+            services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+            services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>(); //add this according to stackoverflow xchange to solve the issue of Unable to resolve service for type 'AspNetCoreRateLimit.IProcessingStrategy' while attempting to activate 'AspNetCoreRateLimit.IpRateLimitMiddleware
+
+        }
+
     }
 }

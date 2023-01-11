@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using CompanyEmployees.ActionFilters;
 using CompanyEmployees.Extensions;
 using CompanyEmployees.Utility;
@@ -59,6 +60,9 @@ namespace CompanyEmployees
             services.ConfigureVersioning();
             services.ConfigureResponseCaching();
             services.ConfigureHttpCacheHeaders();
+            services.AddMemoryCache(); //AspNetCoreRateLimit use memory cache to store its counters and rules
+            services.ConfigureRateLimitingOptions();
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,6 +86,7 @@ namespace CompanyEmployees
             });
             app.UseResponseCaching(); //add cachding to the application middleware
             app.UseHttpCacheHeaders(); //use http cache headers for cache validation
+            app.UseIpRateLimiting(); //use rate limit
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
