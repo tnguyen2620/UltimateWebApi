@@ -20,6 +20,8 @@ namespace Entities
 
             modelBuilder.ApplyConfiguration(new CompanyConfiguration());
             modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration()); //seed the database with 2 roles in the roleconfiguration() method
+
         }
 
     }
