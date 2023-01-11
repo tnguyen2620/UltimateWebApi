@@ -13,6 +13,8 @@ using System.Linq;
 using Marvin.Cache.Headers;
 using AspNetCoreRateLimit;
 using System.Collections.Generic;
+using Entities.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace CompanyEmployees.Extensions
 {
@@ -115,6 +117,21 @@ namespace CompanyEmployees.Extensions
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
             services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>(); //add this according to stackoverflow xchange to solve the issue of Unable to resolve service for type 'AspNetCoreRateLimit.IProcessingStrategy' while attempting to activate 'AspNetCoreRateLimit.IpRateLimitMiddleware
 
+        }
+
+        public static void ConfigureIdentity(this IServiceCollection services)
+        {
+            var builder = services.AddIdentityCore<User>(o =>
+            {
+                o.Password.RequireDigit = true;
+                o.Password.RequireLowercase = false;
+                o.Password.RequireUppercase = false;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 10;
+                o.User.RequireUniqueEmail = true;
+            });
+            builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), builder.Services);
+            builder.AddEntityFrameworkStores<RepositoryContext>().AddDefaultTokenProviders();
         }
 
     }

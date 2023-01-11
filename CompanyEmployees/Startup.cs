@@ -63,6 +63,9 @@ namespace CompanyEmployees
             services.AddMemoryCache(); //AspNetCoreRateLimit use memory cache to store its counters and rules
             services.ConfigureRateLimitingOptions();
             services.AddHttpContextAccessor();
+            services.AddAuthentication(); //for identity
+            services.ConfigureIdentity(); //for identity
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -88,6 +91,7 @@ namespace CompanyEmployees
             app.UseHttpCacheHeaders(); //use http cache headers for cache validation
             app.UseIpRateLimiting(); //use rate limit
             app.UseRouting();
+            app.UseAuthentication(); //for identity
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
