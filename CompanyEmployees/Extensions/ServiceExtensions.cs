@@ -103,7 +103,7 @@ namespace CompanyEmployees.Extensions
                 new RateLimitRule
                 { // 3 requests permitted in every 5 minutes for any endpoint
                     Endpoint = "*",
-                    Limit= 3,
+                    Limit= 30,
                     Period = "5m"
                 }
             };
