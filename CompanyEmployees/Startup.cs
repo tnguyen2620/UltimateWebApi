@@ -65,6 +65,7 @@ namespace CompanyEmployees
             services.AddHttpContextAccessor();
             services.AddAuthentication(); //for identity
             services.ConfigureIdentity(); //for identity
+            services.ConfigureJWT(Configuration); //for JWT configuration
 
         }
 
